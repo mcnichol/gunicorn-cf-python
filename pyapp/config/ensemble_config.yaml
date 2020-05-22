@@ -1,0 +1,5 @@
+SCORING:
+    MODEL_WEIGHTS: 'weights.h5'
+    MODEL_HYPERPARAMS: 'model_hyperparams.yaml'
+    BUILDING_FOOTPRINT_PADDING: 0.1
+    GPU_DEVICE: False

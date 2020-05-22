@@ -1,0 +1,6 @@
+---
+applications:
+- name: test-gdal
+  buildpacks:
+  - osgeo_buildpack
+  - python_buildpack
