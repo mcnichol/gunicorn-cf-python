@@ -2,10 +2,12 @@ import subprocess
 import os
 import yaml
 import sys
+import rasterio as rio
+import geopandas as gpd
 
-ROOT = subprocess.Popen(['git', 'rev-parse', '--show-toplevel'], stdout=subprocess.PIPE).communicate()[0].rstrip().decode('utf-8')
+ROOT = "pyapp"
 sys.path.append(os.path.join(ROOT, 'src'))
-from utils import AerialImage
+from pyapp.src.utils import AerialImage
 
 # initialize
 config_path = os.path.join(ROOT, 'config', 'ensemble_config.yaml')
@@ -14,7 +16,7 @@ bfp_path = os.path.join(ROOT, 'data', 'P0000.json')
 
 with open(config_path, 'r') as f:
     conf = yaml.load(f, Loader=yaml.FullLoader)
-    
+
 class ensembleTree:
     def __init__(self, image_path, bfp_path, model_weights_path, device):
         self.ROOT_DIR = os.path.dirname(os.path.realpath('__file__'))
@@ -31,7 +33,7 @@ class ensembleTree:
         raster = rio.open(self.img_prj_path)
         bfp = gpd.read_file(self.bfp_path)
         im_array = AerialImage().extract_image(raster, bfp)
-        h, w = im_arry.shape[:2]
+        h, w = im_array.shape[:2]
         img_area = h * w
 
         # total roof
@@ -48,7 +50,7 @@ class ensembleTree:
 
 
 def score():
-    
+
     device = "/gpu:0" if conf['SCORING']['GPU_DEVICE'] else '/cpu:0'
     ent = ensembleTree(image_path, bfp_path, conf['SCORING']['MODEL_WEIGHTS'], device)
 

@@ -10,3 +10,4 @@ pandas==0.25.3
 scikit-image==0.14.2
 gunicorn
 pyyaml
+gdal==2.2.1
