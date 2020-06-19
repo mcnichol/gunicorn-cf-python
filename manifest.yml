@@ -4,3 +4,5 @@ applications:
   buildpacks:
   - osgeo_buildpack
   - python_buildpack
+  env:
+    OSGEO_VERSION: 3.0.4
